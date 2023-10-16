@@ -1,0 +1,12 @@
+.LoginPaper{
+    min-width: 380px;
+    width: 33%;
+    aspect-ratio: 1/1;
+    margin: auto;
+    margin-top: 6rem;
+    color: white;
+  }
+  .loginStack{
+    text-align: left;
+  }
+

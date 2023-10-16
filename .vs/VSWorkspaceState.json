@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\renderer",
+    "\\src\\renderer\\src",
+    "\\src\\renderer\\src\\components",
+    "\\src\\renderer\\src\\components\\Authentication"
+  ],
+  "SelectedNode": "\\src\\renderer\\src\\components\\Authentication\\Login.tsx",
+  "PreviewInSolutionExplorer": false
+}
