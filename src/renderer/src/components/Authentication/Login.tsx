@@ -1,9 +1,10 @@
 import { useForm } from '@mantine/form'
 import './Login.css'
 import { TextInput, PasswordInput, Text, Paper, Button, Stack } from '@mantine/core'
-
-export default function Login(props: { setIsAuthenticated: (arg0: boolean) => void }) {
-  const setIsAuthenticated = props.setIsAuthenticated
+import { useContext } from 'react'
+import { UserContext } from '../../App'
+export default function Login() {
+  const { setCurrentUser, setIsAuthenticated } = useContext(UserContext)
   const form = useForm({
     initialValues: {
       Username: '',
@@ -16,33 +17,27 @@ export default function Login(props: { setIsAuthenticated: (arg0: boolean) => vo
       password: (val) => (val.length <= 4 ? 'Password should include at least 5 characters' : null)
     }
   })
-
   return (
     <Paper
       styles={{
-        root: { backgroundColor: 'black' }
+        root: { backgroundColor: '#457b9d' }
       }}
       radius="md"
       p="xl"
-      withBorder
       className="LoginPaper"
     >
-      <Text
-        size="2rem"
-        fw={500}
-        ta="center"
-        variant="gradient"
-        gradient={{ from: 'grape', to: 'cyan', deg: 90 }}
-      >
+      <Text size="1.8rem" fw={900} ta="center" variant="text" color="white" pb={10}>
         Pasal Management
       </Text>
 
       <form
         onSubmit={form.onSubmit(() => {
-          window.ipcRender.invoke('login', form.values).then((res) => {
-            const { success, message } = res
+          window.ipcRender.invoke('login', form.values).then((res: any) => {
+            const { success, message, usertype, username } = res
             if (success) {
               setIsAuthenticated(true)
+              setCurrentUser({ username, usertype })
+              console.log(username)
             } else {
               alert(message)
             }
@@ -51,6 +46,7 @@ export default function Login(props: { setIsAuthenticated: (arg0: boolean) => vo
       >
         <Stack p={20} mx={30} className="loginStack">
           <TextInput
+            className="loginInput"
             required
             label="Username"
             placeholder="User"
@@ -63,6 +59,7 @@ export default function Login(props: { setIsAuthenticated: (arg0: boolean) => vo
 
           <PasswordInput
             required
+            className="loginInput"
             label="Password"
             placeholder="Your password"
             value={form.values.password}
@@ -70,9 +67,9 @@ export default function Login(props: { setIsAuthenticated: (arg0: boolean) => vo
             error={form.errors.password && 'Password should include at least 6 characters'}
             radius="md"
             p={10}
-            pb={0}
+            pb={15}
           />
-          <Button type="submit" radius="xl">
+          <Button type="submit" radius="xl" color="#e63946">
             Log In
           </Button>
         </Stack>

@@ -74,10 +74,32 @@ export default function login() {
             success: true,
             message: 'Login successful',
             usertype: row.user_type,
-            sessionId: sessionId
+            sessionId: sessionId,
+            username: row.username
           }
         }
       }
+    } catch (error) {
+      console.error('Error:', error)
+      return { success: false, message: 'An error occurred' }
+    }
+  })
+  ipcMain.handle('logout', async (_, arg) => {
+    const { sessionId } = arg
+    const deleteSessionSQL = 'DELETE FROM sessions WHERE session_id = ?'
+    try {
+      await new Promise((resolve, reject) => {
+        db.run(deleteSessionSQL, [sessionId], (deleteSessionErr) => {
+          if (deleteSessionErr) {
+            console.error('Error deleting session from the database:', deleteSessionErr.message)
+            reject('Database deletion error')
+          } else {
+            console.log('Session deleted successfully')
+            resolve({ success: true, message: 'Session deleted successfully' })
+          }
+        })
+      })
+      return { success: true, message: 'Logout successful' }
     } catch (error) {
       console.error('Error:', error)
       return { success: false, message: 'An error occurred' }

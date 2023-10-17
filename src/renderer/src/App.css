@@ -1,10 +1,37 @@
-*{
-    font-family: Montserrat;
-    padding: 0;
-    margin: 0;
+* {
+  font-family: Montserrat;
+  padding: 0;
+  margin: 0;
 }
 
-#root{
-    height: 100vh;
-    width: 100vw;
+#root {
+  height: 100vh;
+  width: 100vw;
+  background-color: #1d3557;
+}
+.container {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'navbar content content'
+    'navbar content content'
+    'navbar content content';
+}
+
+:root {
+  --primary-color: #1d3557;
+  --secondary-color: #457b9d;
+  --tertiary-color: #a8dadc;
+  --button-color: #e63946;
+  --white-color: #f1faee;
+}
+.navbar {
+  grid-area: navbar;
+}
+.content {
+  grid-area: content;
 }

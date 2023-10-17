@@ -11,6 +11,8 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 700,
+    minHeight: 550,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -23,6 +25,8 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.focus()
+    mainWindow.webContents.openDevTools()
   })
 
   mainWindow.on('closed', () => {

@@ -1,6 +1,5 @@
 // Import the necessary Electron components.
-const contextBridge = require('electron').contextBridge
-const ipcRenderer = require('electron').ipcRenderer
+const { contextBridge, ipcRenderer } = require('electron')
 
 // White-listed channels.
 const ipc = {
@@ -27,18 +26,20 @@ contextBridge.exposeInMainWorld(
       }
     },
     // From main to render.
-    receive: (channel: string, listener) => {
+    receive: (channel: string, listener: (...args: any[]) => void) => {
       let validChannels = ipc.render.receive
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`.
-        ipcRenderer.on(channel, (event, ...args) => listener(...args))
+        ipcRenderer.on(channel, (_, ...args) => listener(...args))
       }
     },
     // From render to main and back again.
-    invoke: (channel, args) => {
+    invoke: (channel: string, args: any) => {
       let validChannels = ipc.render.sendReceive
       if (validChannels.includes(channel)) {
         return ipcRenderer.invoke(channel, args)
+      } else {
+        return Promise.reject(`Invalid invoke channel: ${channel}`)
       }
     }
   }

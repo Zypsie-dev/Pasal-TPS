@@ -1,12 +1,29 @@
-.LoginPaper{
-    min-width: 380px;
-    width: 33%;
-    aspect-ratio: 1/1;
-    margin: auto;
-    margin-top: 6rem;
-    color: white;
+.LoginPaper {
+  min-width: 360px;
+  width: 30%;
+  aspect-ratio: 0.9/1;
+  margin: auto;
+  margin-top: 6rem;
+  color: white;
+  @media (min-width: em(1000px)) {
+    min-width: 300px;
   }
-  .loginStack{
-    text-align: left;
-  }
+}
+.loginStack {
+  text-align: left;
+}
+.loginInput .mantine-TextInput-label {
+  font-size: 16.5px;
+}
+.loginInput .mantine-PasswordInput-label {
+  font-size: 16.5px;
+}
 
+/*remove default asetric from label*/
+.m-78a94662 {
+  display: none;
+}
+
+#root {
+  display: flex !important;
+}
