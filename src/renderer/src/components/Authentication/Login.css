@@ -1,12 +1,16 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+}
 .LoginPaper {
-  min-width: 360px;
+  margin: auto;
   width: 30%;
   aspect-ratio: 0.9/1;
-  margin: auto;
-  margin-top: 6rem;
   color: white;
-  @media (min-width: em(1000px)) {
-    min-width: 300px;
+  @media screen and (max-width: 900px) {
+    width: 40%;
   }
 }
 .loginStack {
@@ -22,8 +26,4 @@
 /*remove default asetric from label*/
 .m-78a94662 {
   display: none;
-}
-
-#root {
-  display: flex !important;
 }

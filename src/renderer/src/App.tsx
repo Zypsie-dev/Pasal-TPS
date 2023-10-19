@@ -5,6 +5,7 @@ import { MantineProvider } from '@mantine/core'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useState, createContext, useContext } from 'react'
 import './App.css'
+import Product from './components/Product/product'
 interface UserContextType {
   currentUser: { username: string; usertype: string }
   setCurrentUser: React.Dispatch<React.SetStateAction<{ username: string; usertype: string }>>
@@ -30,6 +31,7 @@ function App(): JSX.Element {
               element={
                 <UserElement>
                   <Layout />
+                  <Product />
                 </UserElement>
               }
             />

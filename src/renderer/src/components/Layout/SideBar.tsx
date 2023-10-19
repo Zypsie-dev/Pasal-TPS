@@ -1,18 +1,17 @@
 import { useState, useContext } from 'react'
 import UserButton from './UserButton'
 import {
-  IconBellRinging,
   IconFingerprint,
   IconKey,
   IconSettings,
   IconReceipt2,
   IconLogout
 } from '@tabler/icons-react'
+import { PiPackageDuotone } from 'react-icons/pi'
 import { Group } from '@mantine/core'
 import classes from './sidebar.module.css'
-import { UserContext } from '../../App'
 const data = [
-  { link: '', label: 'Products', icon: IconBellRinging },
+  { link: '', label: 'Products', icon: PiPackageDuotone },
   { link: '', label: 'Billing', icon: IconReceipt2 },
   { link: '', label: 'Stocks', icon: IconFingerprint },
   { link: '', label: 'Sales', icon: IconKey },
@@ -31,7 +30,7 @@ export default function SideBar() {
         setActive(item.label)
       }}
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <item.icon className={classes.linkIcon} />
       <span>{item.label}</span>
     </a>
   ))

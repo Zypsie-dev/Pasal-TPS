@@ -1,0 +1,32 @@
+.content > header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--mantine-spacing-md);
+}
+.content > header > h1 {
+  font-size: rem(30px);
+  font-weight: 300;
+  color: var(--white-color);
+  justify-self: flex-start;
+}
+.content #add {
+  align-self: flex-end;
+}
+.deleteButton {
+  margin-right: 5px;
+  display: flex;
+}
+.tss-1akey0g-MUIDataTableHeadCell-data {
+  text-transform: capitalize;
+}
+.deleteButton .m-6c018570 {
+  width: 50px;
+  margin: 5px 5px;
+}
+.deleteButton .m-46b77525 {
+  margin: 0;
+  padding: 0;
+}
+.deleteButton .m-77c9d27d {
+  margin-top: rem(11px);
+}
