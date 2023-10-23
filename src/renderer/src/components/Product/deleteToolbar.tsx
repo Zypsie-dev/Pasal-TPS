@@ -1,10 +1,13 @@
 import { MdDeleteOutline } from 'react-icons/md'
-import { Button, NumberInput } from '@mantine/core'
+import { Button, NumberInput, Dialog, Group } from '@mantine/core'
 import { useState } from 'react'
+import { notifications } from '@mantine/notifications'
+import { useDisclosure } from '@mantine/hooks'
+
 export async function handleRowDelete(
   selectedRows: any,
   displayData: any,
-  deleteAmt: number,
+  deleteAmt: string | number,
   setProductData: Function
 ) {
   const idsToDelete = selectedRows.data.map((d: any) => displayData[d.dataIndex].data[0])
@@ -15,15 +18,25 @@ export async function handleRowDelete(
     })
     if (result.success) {
       const products = await window.ipcRender.invoke('getproduct')
+      if (!products) throw new Error(products.message)
       setProductData(products.data)
-      alert('Product deleted successfully')
+      notifications.show({
+        title: 'Success',
+        message: 'Successfully deleted',
+        color: 'green',
+        autoClose: 2000
+      })
       return true
     } else {
-      alert('Product deletion failed')
+      notifications.show({
+        title: 'Error',
+        message: result.message,
+        color: 'green',
+        autoClose: 2000
+      })
       return false
     }
-  } catch (error) {
-    console.error('Error:', error)
+  } catch (error: any) {
     throw error
   }
 }
@@ -34,7 +47,9 @@ export const CustomDeleteToolbar = ({
   setSelectedRows,
   setProductData
 }) => {
-  const [deleteAmt, setdeleteAmt] = useState(1)
+  const [opened, toggle] = useDisclosure(false)
+  const [deleteAmt, setdeleteAmt] = useState<string | number>(1)
+
   return (
     <div className="deleteButton">
       <NumberInput
@@ -49,12 +64,35 @@ export const CustomDeleteToolbar = ({
       />
       <Button
         onClick={() => {
-          handleRowDelete(selectedRows, displayData, deleteAmt, setProductData)
+          toggle.open()
         }}
         leftSection={<MdDeleteOutline size={20} />}
       >
         Delete
       </Button>
+      <Dialog
+        opened={opened}
+        onClose={close}
+        position={{ top: 200, left: 500 }}
+        className="delete-dialog"
+      >
+        <div>
+          <h2>Are you sure you want to delete?</h2>
+          <Group justify="flex-end" gap="sm" className="delbuttongrp">
+            <Button
+              onClick={() => {
+                handleRowDelete(selectedRows, displayData, deleteAmt, setProductData)
+                setSelectedRows([])
+                toggle.close()
+              }}
+              color="#e63946"
+            >
+              Yes
+            </Button>
+            <Button onClick={toggle.close}>No</Button>
+          </Group>
+        </div>
+      </Dialog>
     </div>
   )
 }

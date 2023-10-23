@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import MUIDataTable from 'mui-datatables'
-import { Button } from '@mantine/core'
+import { Button, Loader } from '@mantine/core'
 import { LuPackagePlus } from 'react-icons/lu'
 import { CustomDeleteToolbar } from './deleteToolbar'
 import './product.css'
@@ -106,6 +106,7 @@ export default function Product() {
           Add
         </Button>
       </header>
+      {isLoading && <Loader color="white" type="oval" className="loader" />}
       {ProductData && (
         <MUIDataTable title={'Product'} data={ProductData} columns={columns} options={options} />
       )}

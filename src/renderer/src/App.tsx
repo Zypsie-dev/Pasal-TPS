@@ -1,11 +1,14 @@
-import Login from './components/Authentication/Login'
-import Layout from './components/Layout/Layout'
 import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { useState, createContext, useContext } from 'react'
 import './App.css'
+import { Notifications } from '@mantine/notifications'
+
 import Product from './components/Product/product'
+import Login from './components/Authentication/Login'
+import SideBar from './components/Sidebar/SideBar'
+
 interface UserContextType {
   currentUser: { username: string; usertype: string }
   setCurrentUser: React.Dispatch<React.SetStateAction<{ username: string; usertype: string }>>
@@ -23,16 +26,24 @@ function App(): JSX.Element {
       value={{ currentUser, setCurrentUser, isAuthenticated, setIsAuthenticated }}
     >
       <MantineProvider>
+        <Notifications />
         <Router>
+          {!isAuthenticated ? (
+            <Navigate to="/login" />
+          ) : currentUser.usertype === 'admin' ? (
+            <Navigate to="/" />
+          ) : (
+            <Navigate to="/user" />
+          )}
           <Routes>
-            {!isAuthenticated && <Route path="/" element={<Login />} />}
+            <Route path="/login" element={<Login />} />
             <Route
               path="/"
               element={
-                <UserElement>
-                  <Layout />
+                <AdminElement>
+                  <SideBar />
                   <Product />
-                </UserElement>
+                </AdminElement>
               }
             />
           </Routes>
@@ -42,7 +53,7 @@ function App(): JSX.Element {
   )
 }
 export default App
-function UserElement({ children }) {
+function AdminElement({ children }) {
   const { currentUser } = useContext(UserContext)
   if (currentUser.usertype === 'admin') return <>{children}</>
   else return null

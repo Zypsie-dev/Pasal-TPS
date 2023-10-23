@@ -6,12 +6,9 @@
 }
 .LoginPaper {
   margin: auto;
-  width: 30%;
+  width: rem(350px);
   aspect-ratio: 0.9/1;
   color: white;
-  @media screen and (max-width: 900px) {
-    width: 40%;
-  }
 }
 .loginStack {
   text-align: left;

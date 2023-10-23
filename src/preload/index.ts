@@ -20,14 +20,14 @@ contextBridge.exposeInMainWorld(
   {
     // From render to main.
     send: (channel: string, args: any) => {
-      let validChannels = ipc.render.send
+      let validChannels: any = ipc.render.send
       if (validChannels.includes(channel)) {
         ipcRenderer.send(channel, args)
       }
     },
     // From main to render.
     receive: (channel: string, listener: (...args: any[]) => void) => {
-      let validChannels = ipc.render.receive
+      let validChannels: any = ipc.render.receive
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`.
         ipcRenderer.on(channel, (_, ...args) => listener(...args))

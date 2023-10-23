@@ -3,6 +3,7 @@ import './Login.css'
 import { TextInput, PasswordInput, Text, Paper, Button, Stack } from '@mantine/core'
 import { useContext } from 'react'
 import { UserContext } from '../../App'
+import { notifications } from '@mantine/notifications'
 export default function Login() {
   const { setCurrentUser, setIsAuthenticated } = useContext(UserContext)
   const form = useForm({
@@ -38,9 +39,15 @@ export default function Login() {
               if (success) {
                 setIsAuthenticated(true)
                 setCurrentUser({ username, usertype })
-                console.log(username)
+                notifications.show({
+                  title: 'Welcome',
+                  message: username,
+                  color: 'green',
+                  autoClose: 2000,
+                  className: 'notification'
+                })
               } else {
-                alert(message)
+                notifications.show({ title: 'Error', message, color: 'red', autoClose: 2000 })
               }
             })
           })}

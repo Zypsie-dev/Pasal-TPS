@@ -3,6 +3,11 @@
   justify-content: space-between;
   margin-bottom: var(--mantine-spacing-md);
 }
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 .content > header > h1 {
   font-size: rem(30px);
   font-weight: 300;
@@ -29,4 +34,33 @@
 }
 .deleteButton .m-77c9d27d {
   margin-top: rem(11px);
+}
+
+.delete-dialog {
+  background: rgba(69, 123, 157, 0.61);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.1px);
+  -webkit-backdrop-filter: blur(7.1px);
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.delete-dialog div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.delete-dialog div h1 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--white-color);
+  margin-bottom: 1rem;
+}
+.delete-dialog .delbuttongrp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }

@@ -10,10 +10,10 @@ export default async function product() {
     description: string
     stock_quantity: number
   }
-  ipcMain.handle('getproduct', async (_, arg) => {
+  ipcMain.handle('getproduct', async () => {
     try {
       const row = await new Promise<Row | null>((resolve, reject) => {
-        db.all(selectProductSQL, (selectProductErr, row: Row) => {
+        db.all(selectProductSQL, (selectProductErr: Error, row: Row) => {
           if (selectProductErr) {
             console.error('Error querying the database:', selectProductErr.message)
             reject('Database query error')
@@ -29,7 +29,7 @@ export default async function product() {
     }
   })
 }
-ipcMain.handle('deleteproduct', async (event, args) => {
+ipcMain.handle('deleteproduct', async (_, args) => {
   const { idsToDelete, deleteAmt } = args
 
   try {
@@ -38,7 +38,7 @@ ipcMain.handle('deleteproduct', async (event, args) => {
         db.get(
           'SELECT stock_quantity FROM products WHERE product_id = ?',
           [productId],
-          (error, row) => {
+          (error, row: any) => {
             if (error) {
               reject(error)
             } else {
