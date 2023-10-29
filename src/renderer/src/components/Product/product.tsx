@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import MUIDataTable from 'mui-datatables'
-import { Button, Loader } from '@mantine/core'
-import { LuPackagePlus } from 'react-icons/lu'
+import { Loader } from '@mantine/core'
 import { CustomDeleteToolbar } from './deleteToolbar'
 import './product.css'
+import AddProduct from './Add_product'
 async function getProduct() {
   try {
     const result = await window.ipcRender.invoke('getproduct')
@@ -14,7 +14,7 @@ async function getProduct() {
   }
 }
 export default function Product() {
-  const [ProductData, setProductData] = useState(null)
+  const [ProductData, setProductData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const columns = [
     {
@@ -102,13 +102,11 @@ export default function Product() {
     <div className="content">
       <header>
         <h1>Product</h1>
-        <Button id="add" leftSection={<LuPackagePlus size={14} />} variant="default">
-          Add
-        </Button>
+        <AddProduct setProductData={setProductData} ProductData={ProductData} />
       </header>
       {isLoading && <Loader color="white" type="oval" className="loader" />}
       {ProductData && (
-        <MUIDataTable title={'Product'} data={ProductData} columns={columns} options={options} />
+        <MUIDataTable data={ProductData} columns={columns} options={options} />
       )}
     </div>
   )

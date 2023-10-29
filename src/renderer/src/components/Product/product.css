@@ -13,9 +13,10 @@
   font-weight: 300;
   color: var(--white-color);
   justify-self: flex-start;
+  padding-top: 8px;
 }
 .content #add {
-  align-self: flex-end;
+  margin-top: 15px;
 }
 .deleteButton {
   margin-right: 5px;
@@ -24,39 +25,26 @@
 .tss-1akey0g-MUIDataTableHeadCell-data {
   text-transform: capitalize;
 }
-.deleteButton .m-6c018570 {
-  width: 50px;
-  margin: 5px 5px;
-}
+/*delete value box*/
 .deleteButton .m-46b77525 {
   margin: 0;
   padding: 0;
 }
+
+/*delete number input box*/
+.deleteButton .m-6c018570 {
+  width: 55px;
+  margin: 5px 5px;
+}
+/*delete button*/
 .deleteButton .m-77c9d27d {
   margin-top: rem(11px);
 }
-
-.delete-dialog {
-  background: rgba(69, 123, 157, 0.61);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(7.1px);
-  -webkit-backdrop-filter: blur(7.1px);
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.delete-dialog div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.delete-dialog div h1 {
+/*delete dialog*/
+.delete-dialog h2 {
   font-size: 1.5rem;
-  font-weight: 300;
-  color: var(--white-color);
   margin-bottom: 1rem;
+  padding-left: 1.5rem;
 }
 .delete-dialog .delbuttongrp {
   display: flex;
@@ -64,3 +52,26 @@
   align-items: center;
   flex-direction: row;
 }
+/*add product model*/
+.addProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+
+.addProduct button {
+  margin-top: 1rem;
+}
+
+/*Text Input*/
+.addProduct .m-46b77525 {
+  margin-top: 1rem;
+
+}
+/*Number input arrow*/
+.addProduct .m-95e17d22 button {
+  margin-top: 0;
+  padding: 0;
+  
+}
+

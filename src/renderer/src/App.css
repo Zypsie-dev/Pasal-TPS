@@ -39,15 +39,25 @@
   grid-area: content;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
   margin-bottom: 0;
   padding: 0 var(--mantine-spacing-sm);
 }
 /*Notification*/
-[data-portal='true'] {
+[data-portal='true']:has(.m-b37d9ac7) {
   width: 300px;
   aspect-ratio: 1/1;
   position: absolute;
-  top: 85%;
-  right: 2%;
+  top: 90%;
+    left: 75%;
+  
+    @media (min-width: 768px) {
+      left: 65%;
+    }
+}
+
+/*Table footer */
+.tss-djbknv-MUIDataTablePagination-navContainer {
+  justify-content: flex-start !important;
+  align-items: flex-start;
 }

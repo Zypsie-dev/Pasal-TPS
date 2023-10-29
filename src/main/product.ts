@@ -28,62 +28,92 @@ export default async function product() {
       return { success: false, message: 'Error querying the database' }
     }
   })
-}
-ipcMain.handle('deleteproduct', async (_, args) => {
-  const { idsToDelete, deleteAmt } = args
+  ipcMain.handle('deleteproduct', async (_, args) => {
+    const { idsToDelete, deleteAmt } = args
 
-  try {
-    const promises = idsToDelete.map((productId) => {
-      return new Promise((resolve, reject) => {
-        db.get(
-          'SELECT stock_quantity FROM products WHERE product_id = ?',
-          [productId],
-          (error, row: any) => {
+    try {
+      const promises = idsToDelete.map((productId) => {
+        return new Promise((resolve, reject) => {
+          db.get(
+            'SELECT stock_quantity FROM products WHERE product_id = ?',
+            [productId],
+            (error, row: any) => {
+              if (error) {
+                reject(error)
+              } else {
+                const currentStock = row.stock_quantity
+                if (currentStock <= deleteAmt) {
+                  // Delete the product if the quantity is zero or less
+                  db.run(
+                    'DELETE FROM products WHERE product_id = ?',
+                    [productId],
+                    (deleteError) => {
+                      if (deleteError) {
+                        reject(deleteError)
+                      } else {
+                        resolve(true) // Product deleted
+                      }
+                    }
+                  )
+                } else {
+                  // Update the stock_quantity
+                  const newStock = currentStock - deleteAmt
+                  db.run(
+                    'UPDATE products SET stock_quantity = ? WHERE product_id = ?',
+                    [newStock, productId],
+                    (updateError) => {
+                      if (updateError) {
+                        reject(updateError)
+                      } else {
+                        resolve(true) // Stock updated
+                      }
+                    }
+                  )
+                }
+              }
+            }
+          )
+        })
+      })
+
+      // Wait for all promises to resolve
+      const results = await Promise.all(promises)
+
+      // Check if all operations were successful
+      const success = results.every((result) => result === true)
+      return {
+        success,
+        message: success ? 'Product deleted successfully' : 'Product deletion failed'
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      return { success: false, message: 'An error occurred' }
+    }
+  })
+
+  ipcMain.handle('addproduct', async (_, args) => {
+    const { name, cost_price, sell_price, description, stock_quantity } = args
+    console.log(args)
+    const insertProductSQL =
+      'INSERT INTO products (name, cost_price, sell_price, description, stock_quantity) VALUES (?, ?, ?, ?, ?)'
+    try {
+      await new Promise((resolve, reject) => {
+        db.run(
+          insertProductSQL,
+          [name, cost_price, sell_price, description, stock_quantity],
+          (error) => {
             if (error) {
               reject(error)
             } else {
-              const currentStock = row.stock_quantity
-              if (currentStock <= deleteAmt) {
-                // Delete the product if the quantity is zero or less
-                db.run('DELETE FROM products WHERE product_id = ?', [productId], (deleteError) => {
-                  if (deleteError) {
-                    reject(deleteError)
-                  } else {
-                    resolve(true) // Product deleted
-                  }
-                })
-              } else {
-                // Update the stock_quantity
-                const newStock = currentStock - deleteAmt
-                db.run(
-                  'UPDATE products SET stock_quantity = ? WHERE product_id = ?',
-                  [newStock, productId],
-                  (updateError) => {
-                    if (updateError) {
-                      reject(updateError)
-                    } else {
-                      resolve(true) // Stock updated
-                    }
-                  }
-                )
-              }
+              resolve(true)
             }
           }
         )
       })
-    })
-
-    // Wait for all promises to resolve
-    const results = await Promise.all(promises)
-
-    // Check if all operations were successful
-    const success = results.every((result) => result === true)
-    return {
-      success,
-      message: success ? 'Product deleted successfully' : 'Product deletion failed'
+      return { success: true, message: 'Product added successfully',data:args }
+    } catch (error) {
+      console.error('Error:', error)
+      return { success: false, message: 'An error occurred' }
     }
-  } catch (error) {
-    console.error('Error:', error)
-    return { success: false, message: 'An error occurred' }
-  }
-})
+  })
+}

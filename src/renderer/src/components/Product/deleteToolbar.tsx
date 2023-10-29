@@ -1,5 +1,5 @@
 import { MdDeleteOutline } from 'react-icons/md'
-import { Button, NumberInput, Dialog, Group } from '@mantine/core'
+import { Button, NumberInput, Group, Modal } from '@mantine/core'
 import { useState } from 'react'
 import { notifications } from '@mantine/notifications'
 import { useDisclosure } from '@mantine/hooks'
@@ -70,13 +70,13 @@ export const CustomDeleteToolbar = ({
       >
         Delete
       </Button>
-      <Dialog
+      <Modal
         opened={opened}
-        onClose={close}
-        position={{ top: 200, left: 500 }}
-        className="delete-dialog"
+        onClose={toggle.close}
+        centered
+        withCloseButton={false}
       >
-        <div>
+        <div className='delete-dialog'>
           <h2>Are you sure you want to delete?</h2>
           <Group justify="flex-end" gap="sm" className="delbuttongrp">
             <Button
@@ -92,7 +92,7 @@ export const CustomDeleteToolbar = ({
             <Button onClick={toggle.close}>No</Button>
           </Group>
         </div>
-      </Dialog>
+      </Modal>
     </div>
   )
 }

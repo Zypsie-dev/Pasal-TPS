@@ -10,12 +10,11 @@ export default function Login() {
     initialValues: {
       Username: '',
       name: '',
-      password: '',
-      terms: true
+      password: ''
     },
 
     validate: {
-      password: (val) => (val.length <= 4 ? 'Password should include at least 5 characters' : null)
+      password: (val) => (val.length <= 4 ? 'Password should include at least 4 characters' : null)
     }
   })
   return (
@@ -28,7 +27,7 @@ export default function Login() {
         p="xl"
         className="LoginPaper"
       >
-        <Text size="1.8rem" fw={900} ta="center" variant="text" color="white" pb={10}>
+        <Text size="1.8rem" fw={600} ta="center" variant="text" pb={10}>
           Pasal Management
         </Text>
 
@@ -72,7 +71,7 @@ export default function Login() {
               placeholder="Your password"
               value={form.values.password}
               onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-              error={form.errors.password && 'Password should include at least 6 characters'}
+              error={form.errors.password && 'Password should include at least 4 characters'}
               radius="md"
               p={10}
               pb={15}
