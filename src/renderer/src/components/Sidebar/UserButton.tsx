@@ -1,11 +1,10 @@
 import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core'
 import { IconChevronRight } from '@tabler/icons-react'
 import classes from './UserButton.module.css'
-import { useContext } from 'react'
-import { UserContext } from '../../App'
+import useAuth from '../Authentication/useAuth'
 
 export default function UserButton() {
-  const { currentUser } = useContext(UserContext)
+  const { currentUser } = useAuth()
   const username = currentUser.username
   return (
     <UnstyledButton className={classes.user}>

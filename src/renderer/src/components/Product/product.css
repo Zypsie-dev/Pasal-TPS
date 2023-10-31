@@ -6,7 +6,7 @@
 .loader {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 55%;
 }
 .content > header > h1 {
   font-size: rem(30px);
@@ -19,6 +19,7 @@
   margin-top: 15px;
 }
 .deleteButton {
+  margin-top: 0;
   margin-right: 5px;
   display: flex;
 }
@@ -27,7 +28,7 @@
 }
 /*delete value box*/
 .deleteButton .m-46b77525 {
-  margin: 0;
+  margin: 5px 10px;
   padding: 0;
 }
 
@@ -38,7 +39,8 @@
 }
 /*delete button*/
 .deleteButton .m-77c9d27d {
-  margin-top: rem(11px);
+  margin-top: rem(18px);
+  margin-bottom: rem(20px);
 }
 /*delete dialog*/
 .delete-dialog h2 {
@@ -65,8 +67,7 @@
 
 /*Text Input*/
 .addProduct .m-46b77525 {
-  margin-top: 1rem;
-
+  margin: 10px;
 }
 /*Number input arrow*/
 .addProduct .m-95e17d22 button {
@@ -75,3 +76,6 @@
   
 }
 
+.tss-1dqj55d-MUIDataTableToolbarSelect-root{
+  padding: 0 !important;
+}

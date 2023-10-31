@@ -104,10 +104,12 @@ export default function Product() {
         <h1>Product</h1>
         <AddProduct setProductData={setProductData} ProductData={ProductData} />
       </header>
-      {isLoading && <Loader color="white" type="oval" className="loader" />}
-      {ProductData && (
-        <MUIDataTable data={ProductData} columns={columns} options={options} />
+      {isLoading ? (
+        <Loader color="white" type="oval" className="loader" />
+      ) : (
+        ProductData ? <MUIDataTable data={ProductData} columns={columns} options={options} />:null
       )}
+      {}
     </div>
   )
 }

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useForm } from '@mantine/form'
 import './Login.css'
 import { TextInput, PasswordInput, Text, Paper, Button, Stack } from '@mantine/core'
-import { useContext } from 'react'
-import { UserContext } from '../../App'
 import { notifications } from '@mantine/notifications'
+import { useNavigate } from 'react-router-dom'
+import useAuth from './useAuth'
 export default function Login() {
-  const { setCurrentUser, setIsAuthenticated } = useContext(UserContext)
+  const { setCurrentUser, setIsAuthenticated } = useAuth()
   const form = useForm({
     initialValues: {
       Username: '',
@@ -17,6 +18,7 @@ export default function Login() {
       password: (val) => (val.length <= 4 ? 'Password should include at least 4 characters' : null)
     }
   })
+  const Navigate = useNavigate()
   return (
     <div className="login">
       <Paper
@@ -38,6 +40,7 @@ export default function Login() {
               if (success) {
                 setIsAuthenticated(true)
                 setCurrentUser({ username, usertype })
+                Navigate('/')
                 notifications.show({
                   title: 'Welcome',
                   message: username,
