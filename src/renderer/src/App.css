@@ -43,6 +43,12 @@
   margin-bottom: 0;
   padding: 0 var(--mantine-spacing-sm);
 }
+.home-content{
+  background-image: url(underconstruction.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  grid-area: content;
+}
 /*Notification*/
 [data-portal='true']:has(.m-b37d9ac7) {
   width: 300px;
@@ -55,7 +61,6 @@
       left: 65%;
     }
 }
-
 /*Table footer */
 .tss-djbknv-MUIDataTablePagination-navContainer {
   justify-content: flex-start !important;

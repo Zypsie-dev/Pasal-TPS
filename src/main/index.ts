@@ -6,6 +6,7 @@ import './register'
 import register from './register'
 import login from './login'
 import product from './product'
+import users from './users'
 let mainWindow: BrowserWindow
 function createWindow(): void {
   // Create the browser window.
@@ -83,3 +84,4 @@ app.on('window-all-closed', () => {
 register()
 login()
 product()
+users()

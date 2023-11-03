@@ -9,20 +9,25 @@ import Login from './components/Authentication/Login'
 import Layout from './components/Layout'
 import Home from './components/Home/Home'
 import RequireAuth from './components/Authentication/RequireAuth'
+import Users from './components/User/Users'
+import Example from './components/User/test'
 
 interface Auth {
   currentUser: { username: string; usertype: string }
   setCurrentUser: React.Dispatch<React.SetStateAction<{ username: string; usertype: string }>>
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  active: string
+  setActive: React.Dispatch<React.SetStateAction<string>>
 }
 const Auth = createContext({} as Auth)
 
 function App(): JSX.Element {
   const [currentUser, setCurrentUser] = useState({ username: '', usertype: '' })
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [active, setActive] = useState('Home')
   return (
-    <Auth.Provider value={{ currentUser, setCurrentUser, isAuthenticated, setIsAuthenticated }}>
+    <Auth.Provider value={{ currentUser, setCurrentUser, isAuthenticated, setIsAuthenticated,active,setActive }}>
       <MantineProvider>
         <Notifications />
         <Routes>
@@ -31,6 +36,8 @@ function App(): JSX.Element {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/product" element={<Product />} />
+              <Route path="/users" element={<Users />} />
+              <Route path='/purchase' element={<Example/>} />
             </Route>
           </Route>
         </Routes>

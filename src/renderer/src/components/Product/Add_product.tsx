@@ -45,7 +45,6 @@ export default function AddProduct(props: any) {
                 form.reset()
                 const updatedProductData = [...ProductData, res.data]
                 setProductData(updatedProductData)
-                console.log(ProductData)
               } else {
                 notifications.show({
                   title: 'Error',

@@ -1,36 +1,23 @@
-import { useState } from 'react'
 import UserButton from './UserButton'
 import useAuth from '../Authentication/useAuth'
 import {
-  IconFingerprint,
-  IconKey,
   IconSettings,
-  IconReceipt2,
   IconLogout
 } from '@tabler/icons-react'
-import { AiOutlineHome } from 'react-icons/ai'
-import { PiPackageDuotone } from 'react-icons/pi'
 import { Group } from '@mantine/core'
 import classes from './sidebar.module.css'
 import { Link } from 'react-router-dom'
-const data = [
-  { link: '/', label: 'Home', icon: AiOutlineHome },
-  { link: '/product', label: 'Products', icon: PiPackageDuotone },
-  { link: '/user', label: 'User', icon: IconReceipt2 },
-  { link: '/home', label: 'Purchase', icon: IconFingerprint },
-  { link: '/sales', label: 'Sales', icon: IconKey }
-]
-export default function SideBar(props: any) { 
-  const {active, setActive} = props
+import { data } from './Links'
+export default function SideBar() { 
   const Auth = useAuth()
   const links = data.map((item) => (
     <Link
       className={classes.link}
-      data-active={item.label === active ? true : undefined}
+      data-active={item.label === Auth.active ? true : undefined}
       to={item.link}
       key={item.label}
       onClick={() => {
-        setActive(item.label)
+        Auth.setActive(item.label)
       }}
     >
       <item.icon className={classes.linkIcon} />

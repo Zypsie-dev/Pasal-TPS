@@ -109,7 +109,6 @@ export default function Product() {
       ) : (
         ProductData ? <MUIDataTable data={ProductData} columns={columns} options={options} />:null
       )}
-      {}
     </div>
   )
 }
